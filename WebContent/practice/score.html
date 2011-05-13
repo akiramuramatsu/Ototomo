@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="user-scalable=no,initial-scale=1" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<title>おんぷを読む</title>
+		<!--
+		<link rel="stylesheet" href="common/css/main.css" type="text/css" media="all" />
+		-->
+	</head>
+	<body>
+		<div id="piano" style="width:100px; margin:0 auto 0 auto;">
+			<canvas id="pianocanvas" width="300" height="300"></canvas>
+			<canvas id="scorecanvas" width="300" height="200"></canvas>
+			<script type="text/javascript" src="common/script/musicscore.js"></script>
+			<script type="text/javascript" src="common/script/piano.js"></script>
+			<script type="text/javascript">
+				// 回答時の動作をここで指定してますよん
+				var checkPanel = function(data){
+					if(data== (musicscore.currentScoreIndex % 7 )){
+						alert("ok");
+						musicscore.drawRandam();
+					}
+				};
+				musicscore.init("scorecanvas");
+				musicscore.drawRandam();
+
+				piano.init("pianocanvas",checkPanel);
+				piano.draw();
+			</script>
+		</div>
+	</body>
+</html>
