@@ -14,14 +14,28 @@
 		<div id="piano" style="width:100px; margin:0 auto 0 auto;">
 			<canvas id="pianocanvas" width="300" height="300"></canvas>
 			<canvas id="scorecanvas" width="300" height="200"></canvas>
+			<canvas id="stopwatchcanvas" width="50" height="50"></canvas>
 			<script type="text/javascript" src="common/script/musicscore.js"></script>
 			<script type="text/javascript" src="common/script/piano.js"></script>
+			<script type="text/javascript" src="common/script/stopwatch.js"></script>
 			<script type="text/javascript">
+				// 10問正解でOKとする。
+				var ct = 0;
+
 				// 回答時の動作をここで指定してますよん
 				var checkPanel = function(data){
 					if(data== (musicscore.currentScoreIndex % 7 )){
-						alert("ok");
 						musicscore.drawRandam();
+						ct++;
+						if(ct>=10){
+							// 終わり 10問正解したので終わりです。
+							stopwatch.stop();
+							// TODO 終了演出
+							alert(stopwatch.elapsed + " 秒でした！");
+							ct = 0;
+							stopwatch.init("stopwatchcanvas");
+							stopwatch.start();
+						}
 					}
 				};
 				musicscore.init("scorecanvas");
@@ -29,6 +43,10 @@
 
 				piano.init("pianocanvas",checkPanel);
 				piano.draw();
+
+				stopwatch.init("stopwatchcanvas");
+				stopwatch.start();
+
 			</script>
 		</div>
 	</body>

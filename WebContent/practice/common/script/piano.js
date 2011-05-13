@@ -33,7 +33,7 @@ piano.checkPanelXY = function(sx, sy){
 	// タップされたパネル位置取得
 	if(sx >= 10 && sx <= (10 + piano.whiteKeyWidth * 7) && sy >= 200 && sy <= 280){
 		var col = Math.floor((sx - 10) / piano.whiteKeyWidth);
-		alert(col + " " + piano.oto[col]);
+		//alert(col + " " + piano.oto[col]);
 		piano.checkPanel(col);
 	}
 };
