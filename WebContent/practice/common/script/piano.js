@@ -7,6 +7,7 @@ var piano = {
 	color: "black",
 	canvasname: "",
 	oto: ["C","D","E","F","G","A","B"],
+	timerId: 0,
 	checkPanel: ""
 };
 
@@ -33,13 +34,29 @@ piano.checkPanelXY = function(sx, sy){
 	// タップされたパネル位置取得
 	if(sx >= 10 && sx <= (10 + piano.whiteKeyWidth * 7) && sy >= 200 && sy <= 280){
 		var col = Math.floor((sx - 10) / piano.whiteKeyWidth);
+
+	    // 描画コンテクストを得る
+	    var canvas = document.getElementById(piano.canvasname);
+	    var context = canvas.getContext('2d');
+
+		// TODO タップされた鍵盤がわかるようにするよ。○を表示。
+		var ccx = 10 + piano.whiteKeyWidth * col + (piano.whiteKeyWidth) / 2;
+		var ccy = 260;
+		context.moveTo( ccx, ccy);
+		context.fillStyle = piano.color;
+		context.arc( ccx, ccy, 10, 0, Math.PI * 2, false);
+		context.fill();
+		setInterval(piano.reDraw, 500);
+
 		//alert(col + " " + piano.oto[col]);
 		piano.checkPanel(col);
 	}
+
 };
 
 
 piano.draw = function(){
+	if(piano.timerId != 0) clearInterval(piano.timerId);
     // canvas要素の作成
     //var canvas = document.createElement('canvas');
     var canvas = document.getElementById(piano.canvasname);
@@ -92,7 +109,11 @@ piano.draw = function(){
 };
 
 piano.clearCanvas = function(){
-    var context = document.getElementById("mycanvas").getContext("2d");
+    var context = document.getElementById(piano.canvasname).getContext("2d");
 	context.clearRect(-10,-10,piano.canvasWidth,piano.canvasHeight);//図形を消去
 };
 
+piano.reDraw = function(){
+	piano.clearCanvas();
+	piano.draw();
+};
