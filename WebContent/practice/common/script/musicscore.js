@@ -8,6 +8,7 @@ var musicscore = {
 	canvasZeroY: 20,
 	canvasname: "",
 	currentScoreIndex: 0,
+	dispSameScore: false,
 	scoreWidth: 100
 };
 
@@ -90,6 +91,9 @@ musicscore.clearCanvas = function(){
  */
 musicscore.drawRandam = function(){
 	var rand = Math.floor(Math.random() * 8);
+	while(!musicscore.dispSameScore && rand==musicscore.currentScoreIndex){
+		rand = Math.floor(Math.random() * 8);
+	}
 	musicscore.clearCanvas();
 	musicscore.drawscore(rand);
 };
